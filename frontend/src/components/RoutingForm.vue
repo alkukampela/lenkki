@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { EventBus } from '../event-bus.js'
+  import { SET_START_LOCATION, CLEAR_START_LOCATION } from '../store//mutation-types.js'
 
   export default {
     data() {
@@ -72,14 +72,11 @@
           this.publishLocation(this.latitude, this.longitude)
         }
       },
-      publishLocation: function(latitude, longitude) {
-        if (latitude === undefined || longitude === undefined) {
-          return
+      publishLocation: function(lat, lng) {
+        if (lat === undefined || lng === undefined) {
+          this.$store.commit(CLEAR_START_LOCATION)
         }
-        EventBus.$emit('location_set', {
-          latitude,
-          longitude
-        })
+        this.$store.commit(SET_START_LOCATION, {lat, lng})
       }
     }
   }
