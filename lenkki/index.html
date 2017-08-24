@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>L.E.N.K.K.I.</title>
+    <script src="http://localhost:16044/map-api"></script>
+    <style type="text/css">
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+      }
+
+      #routingApp {
+        display: grid;
+        grid-template-areas: 'header'
+                             'main'
+                             'footer';
+        grid-template-columns: minmax(auto, 12em) 5fr;
+        grid-template-rows: auto 1fr auto;
+        height: 100vh;
+      }
+
+      #form {
+        grid-area: header;
+        background-color: honeydew;
+        width: 100vw;
+        padding: 1em 0 1em 0;
+      }
+
+      footer {
+        grid-area: footer;
+        background-color: lightgray;
+        width: 100vw;
+      }
+
+      #mapArea {
+        grid-area: main;
+        overflow-y: auto;
+        margin: 0 auto;
+        background: gray;
+        width: 100vw;
+      }
+
+
+
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

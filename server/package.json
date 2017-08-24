@@ -1,0 +1,33 @@
+{
+  "name": "routing",
+  "version": "1.0.0",
+  "description": "Round route planner",
+  "main": "index.js",
+  "dependencies": {
+    "@mapbox/polyline": "^0.2.0",
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "commander": "^2.9.0",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "express-http-proxy": "^1.0.6",
+    "fs": "0.0.1-security",
+    "gaussian": "^1.1.0",
+    "geodesy": "^1.1.1",
+    "jsonfile": "^3.0.0",
+    "node-tspsolver": "^1.0.1",
+    "strict-uri-encode": "^2.0.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1"
+  },
+  "scripts": {
+    "test": "test",
+    "lint": "./node_modules/.bin/eslint src --ext .js --ext .json"
+  },
+  "author": "rk",
+  "license": "MIT"
+}
