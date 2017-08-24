@@ -20,7 +20,6 @@ Add configuration.js file to src/ directory.
 File structure:
 
 ```javascript
-
 class Configuration {
   constructor() {
     this.mapApiKey = 'xxx'
@@ -29,7 +28,6 @@ class Configuration {
   }
 }
 module.exports = Configuration
-
 ```
 
 ## Api
@@ -45,3 +43,13 @@ Wrapper for Google Maps JS-library.
 ### POST /
 
 Plans a route
+
+Payload:
+
+```javascript
+{
+  "lat": {decimal},
+  "lng": {decimal},
+  "length": {decimal}
+}
+```
