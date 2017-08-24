@@ -1,6 +1,6 @@
-# lenkki
+# L.E.N.K.K.I. frontend
 
-> One router to rule them all
+> Frontend for round trip planner
 
 ## Build Setup
 
@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:12004
 npm run dev
 
 # build for production with minification
@@ -26,5 +26,3 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
