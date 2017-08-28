@@ -8,33 +8,32 @@
     </div>
 
     <div>
-      <input v-validate="'required|decimal|min_value:0.1'" :class="{
-        'input': true, 'is-danger': errors.has('length')
-        }" name="length" type="number" placeholder="Length"> km
-
-      <div v-show="errors.has('length')" class="help is-danger">{{ errors.first('length') }}</div>
+      <input
+        v-model="routeLength"
+        type="number"
+        placeholder="Length"> km
     </div>
-
-    <div>lat: {{ latitude }}</div>
-    <div>lon: {{ longitude }}</div>
 
     <div id="out"></div>
 
-    <h1>{{ error }}</h1>
+    <div>{{ error }}</div>
+
+    <button  v-bind:disabled="sendingIsDisabled">Magic Button</button>
 
   </section>
 </template>
 
 <script>
-  import { SET_START_LOCATION, CLEAR_START_LOCATION } from '../store//mutation-types.js'
+  import {
+    SET_START_LOCATION,
+    CLEAR_START_LOCATION,
+    SET_ROUTE_LENGTH
+  } from '../store//mutation-types.js'
 
   export default {
     data() {
       return {
         address: null,
-        latitude: null,
-        longitude: null,
-        length: 0,
         error: null
       }
     },
@@ -52,9 +51,7 @@
         navigator.geolocation.getCurrentPosition(position => {
           output.innerHTML = ''
           this.error = null
-          this.latitude = position.coords.latitude
-          this.longitude = position.coords.longitude
-          this.publishLocation(this.latitude, this.longitude)
+          this.publishLocation(position.coords.latitude, position.coords.longitude)
         }, () => {
           this.error = 'Unable to retrieve your location'
         })
@@ -67,9 +64,7 @@
 
         if (this.address != null) {
           const loc = await getLocation(this.address)
-          this.longitude = loc.lng
-          this.latitude = loc.lat
-          this.publishLocation(this.latitude, this.longitude)
+          this.publishLocation(loc.lat, loc.lng)
         }
       },
       publishLocation: function(lat, lng) {
@@ -77,6 +72,19 @@
           this.$store.commit(CLEAR_START_LOCATION)
         }
         this.$store.commit(SET_START_LOCATION, {lat, lng})
+      }
+    },
+    computed: {
+      routeLength: {
+        get() {
+          return this.$store.state.routeLength
+        },
+        set(value) {
+          this.$store.commit(SET_ROUTE_LENGTH, value)
+        }
+      },
+      sendingIsDisabled: function() {
+        return !this.$store.getters.canSend
       }
     }
   }
