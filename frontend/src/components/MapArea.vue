@@ -22,6 +22,12 @@
     computed: {
       startLocation() {
         return this.$store.state.startLocation
+      },
+      bounds() {
+        return this.$store.state.bounds
+      },
+      route() {
+        return this.$store.state.route
       }
     },
     watch: {
@@ -40,24 +46,20 @@
           this.homeMarker.setMap(this.map)
           this.map.panTo(startLocation)
         }
-      }
-    },
-    created() {
-      /*
-      EventBus.$on('location_set', payload => {
-        if (this.homeMarker) {
-          this.homeMarker.setMap(null)
-          this.homeMarker = null
-        }
-
-        const startLocation = new window.google.maps.LatLng(payload.latitude, payload.longitude)
-        this.homeMarker = new window.google.maps.Marker({
-          position: startLocation
+      },
+      bounds(bounds) {
+        const sw = new window.google.maps.LatLng({lat: bounds.sw.lat, lng: bounds.sw.lng})
+        const ne = new window.google.maps.LatLng({lat: bounds.ne.lat, lng: bounds.ne.lng})
+        this.map.fitBounds(new window.google.maps.LatLngBounds(sw, ne))
+      },
+      route(route) {
+        // Clear previous route
+        this.map.data.forEach((feature) => {
+          this.map.data.remove(feature)
         })
 
-        this.homeMarker.setMap(this.map)
-        this.map.panTo(startLocation)
-      }) */
+        this.map.data.addGeoJson(route)
+      }
     }
   }
 </script>
