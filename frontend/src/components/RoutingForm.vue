@@ -18,7 +18,9 @@
 
     <div>{{ error }}</div>
 
-    <button  v-bind:disabled="sendingIsDisabled">Magic Button</button>
+    <button @click="$emit('doRouting')" v-bind:disabled="sendingIsDisabled">
+      Magic Button
+    </button>
 
   </section>
 </template>
@@ -28,7 +30,7 @@
     SET_START_LOCATION,
     CLEAR_START_LOCATION,
     SET_ROUTE_LENGTH
-  } from '../store//mutation-types.js'
+  } from '../store/mutation-types.js'
 
   export default {
     data() {
@@ -57,13 +59,11 @@
         })
       },
       locateAddress: async function() {
-        const getLocation =
-          async() => await (
+        if (this.address != null) {
+          const loc = await (
             await fetch(`http://localhost:16044/locate?address=${this.address}`)
           ).json()
 
-        if (this.address != null) {
-          const loc = await getLocation(this.address)
           this.publishLocation(loc.lat, loc.lng)
         }
       },
