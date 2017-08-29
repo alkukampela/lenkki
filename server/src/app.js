@@ -63,7 +63,7 @@ app.get('/locate', (req, res) => {
     result => {
       if (result.error) {
         console.log(result.error)
-        res.status(400).json({ error: result.error })
+        res.status(404).json({ error: result.error })
         return
       }
 
