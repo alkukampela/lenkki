@@ -60,11 +60,18 @@
       },
       locateAddress: async function() {
         if (this.address != null) {
-          const loc = await (
-            await fetch(`http://localhost:16044/locate?address=${this.address}`)
-          ).json()
-
-          this.publishLocation(loc.lat, loc.lng)
+          this.error = null
+          try {
+            const response = await fetch(`http://localhost:16044/locate?address=${this.address}`)
+            const respData = await response.json()
+            if (response.ok) {
+              this.publishLocation(respData.lat, respData.lng)
+              return
+            }
+            this.error = respData.error
+          } catch (ex) {
+            this.error = ex.message
+          }
         }
       },
       publishLocation: function(lat, lng) {
