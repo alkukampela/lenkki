@@ -6,7 +6,11 @@
 </template>
 
 <script>
-  import { SET_ROUTE } from '../store/mutation-types.js'
+  import {
+    SET_ROUTE,
+    START_ROUTING,
+    FINISH_ROUTING
+  } from '../store/mutation-types.js'
   import RoutingForm from './RoutingForm.vue'
   import MapArea from './MapArea.vue'
 
@@ -20,7 +24,7 @@
     },
     methods: {
       doRouting: async function() {
-        // TODO: set global state to loading
+        this.$store.commit(START_ROUTING)
         const req = {
           lat: this.$store.state.startLocation.lat,
           lng: this.$store.state.startLocation.lng,
@@ -37,7 +41,7 @@
 
         // TODO: store route only if routing was succesful
         this.$store.commit(SET_ROUTE, {route: response.route, bounds: response.bounds})
-        // TODO: set global state to loading done
+        this.$store.commit(FINISH_ROUTING)
       }
     }
   }

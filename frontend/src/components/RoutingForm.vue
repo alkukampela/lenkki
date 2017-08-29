@@ -1,5 +1,5 @@
 <template>
-  <section id="form">
+  <fieldset id="form" v-bind:disabled="formIsDisabled">
 
     <div>
       <button v-on:click="locatePosition">Show my location</button>
@@ -22,7 +22,7 @@
       Magic Button
     </button>
 
-  </section>
+  </fieldset>
 </template>
 
 <script>
@@ -85,6 +85,9 @@
       },
       sendingIsDisabled: function() {
         return !this.$store.getters.canSend
+      },
+      formIsDisabled: function() {
+        return this.$store.state.isRouting
       }
     }
   }

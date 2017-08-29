@@ -4,7 +4,9 @@ import {
   SET_START_LOCATION,
   CLEAR_START_LOCATION,
   SET_ROUTE_LENGTH,
-  SET_ROUTE
+  SET_ROUTE,
+  START_ROUTING,
+  FINISH_ROUTING
 } from './mutation-types.js'
 
 Vue.use(Vuex)
@@ -14,7 +16,8 @@ export default new Vuex.Store({
     startLocation: null,
     routeLength: null,
     bounds: null,
-    route: null
+    route: null,
+    isRouting: false
   },
   mutations: {
     [SET_START_LOCATION](state, location) {
@@ -29,6 +32,12 @@ export default new Vuex.Store({
     [SET_ROUTE](state, resp) {
       state.route = resp.route
       state.bounds = resp.bounds
+    },
+    [START_ROUTING](state) {
+      state.isRouting = true
+    },
+    [FINISH_ROUTING](state) {
+      state.isRouting = false
     }
   },
   getters: {
