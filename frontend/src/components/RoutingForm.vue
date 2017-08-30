@@ -29,30 +29,29 @@
   import {
     SET_START_LOCATION,
     CLEAR_START_LOCATION,
-    SET_ROUTE_LENGTH
+    SET_ROUTE_LENGTH,
+    SET_ERROR,
+    CLEAR_ERROR
   } from '../store/mutation-types.js'
 
   export default {
     data() {
       return {
-        address: null,
-        error: null
+        address: null
       }
     },
     methods: {
       locatePosition: function() {
         const output = document.getElementById('out')
-
+        this.error = null
         if (!navigator.geolocation) {
           this.error = 'Geolocation is not supported by your browser'
           return
         }
-
         output.innerHTML = '<p>Locating…</p>'
 
         navigator.geolocation.getCurrentPosition(position => {
           output.innerHTML = ''
-          this.error = null
           this.publishLocation(position.coords.latitude, position.coords.longitude)
         }, () => {
           this.error = 'Unable to retrieve your location'
@@ -60,7 +59,7 @@
       },
       locateAddress: async function() {
         if (this.address != null) {
-          this.error = null
+          this.$store.commit(CLEAR_ERROR)
           try {
             const response = await fetch(`http://localhost:16044/locate?address=${this.address}`)
             const respData = await response.json()
@@ -95,6 +94,14 @@
       },
       formIsDisabled: function() {
         return this.$store.state.isRouting
+      },
+      error: {
+        get() {
+          return this.$store.state.error
+        },
+        set(value) {
+          value ? this.$store.commit(SET_ERROR, value) : this.$store.commit(CLEAR_ERROR)
+        }
       }
     }
   }

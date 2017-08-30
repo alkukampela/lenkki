@@ -6,7 +6,9 @@ import {
   SET_ROUTE_LENGTH,
   SET_ROUTE,
   START_ROUTING,
-  FINISH_ROUTING
+  FINISH_ROUTING,
+  SET_ERROR,
+  CLEAR_ERROR
 } from './mutation-types.js'
 
 Vue.use(Vuex)
@@ -17,7 +19,8 @@ export default new Vuex.Store({
     routeLength: null,
     bounds: null,
     route: null,
-    isRouting: false
+    isRouting: false,
+    error: null
   },
   mutations: {
     [SET_START_LOCATION](state, location) {
@@ -38,6 +41,12 @@ export default new Vuex.Store({
     },
     [FINISH_ROUTING](state) {
       state.isRouting = false
+    },
+    [SET_ERROR](state, error) {
+      state.error = error
+    },
+    [CLEAR_ERROR](state) {
+      state.error = null
     }
   },
   getters: {
